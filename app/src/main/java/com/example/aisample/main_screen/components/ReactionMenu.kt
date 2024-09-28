@@ -31,11 +31,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
@@ -52,23 +49,22 @@ fun ContextMenus(
     onDismiss: () -> Unit
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+
     val reactionsOffset = DpOffset(x = 0.dp, y = 70.dp)
-    val messageActionsOffset =  DpOffset(x = 0.dp, y =0.dp)
-//    val reactionsOffset = DpOffset(x = screenWidth / 3, y = (170).dp)
-//    val messageActionsOffset = DpOffset(x = screenWidth / 3, y = 0.dp)
+    val offset =  DpOffset(x = screenWidth/3, y =(-20).dp)
+
     Column {
-        MessageOptionContextMenu(
-            showReactionBox = showReactionBox,
-            offset = reactionsOffset,
-            onDismiss = onDismiss
-        )
+//        MessageOptionContextMenu(
+//            showReactionBox = showReactionBox,
+//            offset = reactionsOffset,
+//            onDismiss = onDismiss
+//        )
 
         ReactionBoxContextMenu(
             allowedReactions = allowedReactions,
             userReaction = userReaction,
             showReactionBox = showReactionBox,
-            offset = messageActionsOffset,
+            offset = offset,
             onDismiss = onDismiss
         )
     }
@@ -104,6 +100,7 @@ fun ReactionBoxContextMenu(
                     .width(200.dp)
                     .background(color = Color.Transparent),
                 expanded = showReactionBox,
+                offset = offset,
                 onDismissRequest = onDismiss,
             ) {
                 Row {
@@ -171,6 +168,7 @@ fun MessageOptionContextMenu(showReactionBox: Boolean, offset: DpOffset, onDismi
                     .width(200.dp)
                     .background(color = Color.Transparent),
                 expanded = showReactionBox,
+                offset = offset,
                 onDismissRequest = onDismiss,
             ) {
                 Box(
